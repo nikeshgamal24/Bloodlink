@@ -1,0 +1,47 @@
+donar
+--->signup --> default category (receipient)
+---> login
+
+request
+--> requestModal(post method)--> requestStatus:inprogress: both
+--> (get) AUthor ID ---> user profile --> my dashboard (request gareko request) : both
+--> (get)  blood group match ---> incomming request (receiver): only for donor
+--> (get) all requests: only for donor
+
+Campaign
+--> post request --> to add Campaign(done)
+--> get request --> fetch all data --> fetched in-progress campaign(done)
+
+home dashboard:
+--> get --> all blood group with no of active donors
+--> get --> request number and pint delivered and total numbers of donars, 
+            sucessful(status completed)
+
+user
+--> get request --> all user data (both donar and receipient)
+--> get request --> total reward points //around last increment
+
+
+admin panel: //done
+--login
+
+admin panel dashboard:
+--> get request --> user account verification (for unverified users)(done)
+
+
+donation:
+--> transaction model: TODO future
+
+donor:
+--> get request --> author id and completed status (kata kata donaiton gare tesko data)
+
+
+
+TODO: (future)
+-geolocation --> 2nd increment  
+
+-notification feature --> sms and email // QR code --->3rd increment
+- 3 month gap to the blood donor (notification)
+
+-reward points  --> 4th increment
+--advertisement(if landing page bhayo bhane tei haldini)
