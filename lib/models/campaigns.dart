@@ -16,7 +16,6 @@ class Campaign {
   final String campaignLongitude;
   final String campaignLatitude;
   final int goalPint;
-  final int collectedPint;
 
   final String campaignOrganizer;
   final String campaignEmail;
@@ -38,7 +37,6 @@ class Campaign {
     required this.campaignLongitude,
     required this.campaignLatitude,
     required this.goalPint,
-    required this.collectedPint,
     required this.campaignOrganizer,
     required this.campaignEmail,
     required this.campaignContact,
@@ -62,7 +60,6 @@ class Campaign {
       "campaignLongitude": campaignLongitude,
       "campaignLatitude": campaignLatitude,
       "goalPint": goalPint,
-      "collectedPint": collectedPint,
       "campaignOrganizer": campaignOrganizer,
       "campaignEmail": campaignEmail,
       "campaignContact": campaignContact,
@@ -86,7 +83,6 @@ class Campaign {
       campaignLongitude: map['campaignLongitude'] ?? '',
       campaignLatitude: map['campaignLatitude'] ?? '',
       goalPint: map['goalPint'] ?? 0,
-       collectedPint: map['collectedPint'] ?? 0,
       campaignOrganizer: map['campaignOrganizer'] ?? '',
       campaignEmail: map['campaignEmail'] ?? '',
       campaignContact: map['campaignContact'] ?? 0,

@@ -17,6 +17,7 @@ class RequestServices{
     try {
       print("===========================================");
       print("Beginning fetchAllProducts");
+      print(userProvider.user.token);
       http.Response res = await http.get(
         Uri.parse('$uri/request/getAllRequest'),
         headers: <String, String>{
@@ -26,6 +27,7 @@ class RequestServices{
       );
       print("===========================================");
       print("End fetchAllProducts");
+      print(jsonEncode(jsonDecode(res.body)[0]));
 
       // ignore: use_build_context_synchronously
       httpErrorHandle(

@@ -36,8 +36,8 @@ class CampaignCustomTextField extends StatelessWidget {
         fontSize: 15,
       ),
       validator: (value) {
-        if(value!.isEmpty){
-          return  'This field is required';
+        if (value!.isEmpty) {
+          return 'This field is required';
         }
         switch (hintText) {
           case 'Enter Campaign Contact Email':
@@ -58,13 +58,11 @@ class CampaignCustomTextField extends StatelessWidget {
                 hintText == "Enter Ward Number" ||
                 hintText == "Enter Goal of Pint Number" ||
                 hintText == "Enter Campaign Contact Number") {
-             
               if (int.parse(value) <= 0) {
                 return "Invalid Input! Shouldn't contain negative or zero number";
               }
               //checking for valid ward number in the function create\
             } else if (hintText == "Enter Campaign Date i.e. yy-mm-dd") {
-              
               // Define a regular expression to match the "yyyy-mm-dd" format
               RegExp dateRegExp = RegExp(r'^\d{4}-\d{2}-\d{2}$');
               if (!dateRegExp.hasMatch(value)) {
@@ -74,8 +72,8 @@ class CampaignCustomTextField extends StatelessWidget {
               if (parsedDate.isBefore(DateTime.now())) {
                 return "Invalid Date!!! Please Enter Future Date";
               }
-            } else if (value is String &&
-                hintText != "Campaign Status i.e. Either 'Every' or ' '") {
+            } else if (hintText !=
+                "Campaign Status i.e. Either 'Every' or ' '") {
               //checks value is not empty
               if (value.isEmpty) {
                 return "This Field is required";

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:test/common/widgets/profile_section.dart';
 import 'package:test/constants/global_variables.dart';
+import 'package:test/features/auth/form/bloodRequestForm/blood_request_form.dart';
 import 'package:test/features/auth/form/campaignForm/screens/campaign_form.dart';
 
 class CreateScreen extends StatelessWidget {
@@ -11,6 +13,9 @@ class CreateScreen extends StatelessWidget {
 
   void navigationToCreateCampaign(){
       Navigator.pushNamed(context, CampaignCreateForm.routeName);
+  }
+  void navigationToCreateBloodRequest(){
+      Navigator.pushNamed(context, BloodRequesCreateForm.routeName);
   }
 
 
@@ -39,16 +44,7 @@ class CreateScreen extends StatelessWidget {
                   ),
                 )
               ),
-              Container(
-                // color: Colors.transparent,
-                // height: 42,
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                child: const Icon(
-                  Icons.account_circle_outlined,
-                  color: Colors.black,
-                  size: 32,
-                ),
-              )
+               const ProfileIcon(),
             ],
           ),
         ),
@@ -62,7 +58,7 @@ class CreateScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: GlobalVariables.buttonBackgroundColor,
               ),
-              onPressed: () {},
+              onPressed: navigationToCreateBloodRequest,
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 10),

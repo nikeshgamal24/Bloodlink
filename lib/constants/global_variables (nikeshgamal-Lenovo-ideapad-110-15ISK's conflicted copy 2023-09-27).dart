@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 //global variable
 //home
-String uri = 'http://172.16.12.165:3000';
+// String uri = 'http://192.168.1.69:3000';
 
+// String uri = 'http://172.16.7.179:3000';
+// String uri = 'http://172.16.9.193:3000';
+String uri = 'http://172.20.10.2:3000';
+ 
 //Pokhara home address
 // String uri = 'http://192.168.1.12:3000';
 // String uri = 'https://bloodlink.cyclic.app';
 
+
 //adarsh
 // String uri = 'http://172.20.10.3:3000';
 
-class GlobalVariables {
-  // COLORS
+class GlobalVariables{
+   // COLORS
   static const appBarGradient = LinearGradient(
     colors: [
       Color.fromARGB(255, 204, 37, 76),
@@ -26,15 +31,15 @@ class GlobalVariables {
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
   static const titleColor = Color.fromARGB(255, 160, 43, 19);
-  static const dataDisplayColor = Color.fromARGB(255, 175, 14, 14);
-  static const pageTitleColor = Color.fromARGB(255, 112, 22, 22);
-  static const buttonBackgroundColor = Color.fromARGB(255, 216, 0, 50);
-  static const loginSignUpButtonBackgroundColor =
-      Color.fromARGB(255, 212, 29, 72);
-  static const appBarColor = Color.fromARGB(255, 201, 25, 66);
-  static const dividerColor = Color.fromARGB(59, 0, 0, 0);
+  static const dataDisplayColor =  Color.fromARGB(255, 175, 14, 14);
+  static const pageTitleColor =  Color.fromARGB(255, 112, 22, 22);
+  static const buttonBackgroundColor= Color.fromARGB(255,216,0,50);
+  static const loginSignUpButtonBackgroundColor= Color.fromARGB(255, 212, 29, 72);
+    static const appBarColor= Color.fromARGB(255, 201, 25, 66);
+    static const dividerColor= Color.fromARGB(59, 0, 0, 0);
 
-  // STATIC IMAGES
+
+    // STATIC IMAGES
   static const List<String> carouselImages = [
     'https://img.freepik.com/free-psd/blood-donation-banner-template_23-2149084554.jpg?w=360',
     'https://img.freepik.com/free-psd/blood-donation-banner-template_23-2149095055.jpg',
@@ -43,7 +48,7 @@ class GlobalVariables {
     'https://img.freepik.com/free-vector/world-blood-donor-day-realistic-banner_23-2149393884.jpg?w=2000',
   ];
 
-  static const List<Map<String, String>> categoryImages = [
+static const List<Map<String, String>> categoryImages = [
     {
       'title': 'Mobiles',
       'image': 'assets/images/mobiles.jpeg',

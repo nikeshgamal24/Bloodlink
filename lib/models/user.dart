@@ -72,9 +72,9 @@ class User {
       role: map['role'] ?? '',
       status: map['status'] ?? '',
       password: map['password'] ?? '',
-      faceImage: map['faceImage'] ?? '',
-      governmentDocument: map['governmentDocument'] ?? '',
-      medicalDocument: map['medicalDocument'] ?? '',
+       faceImage: List<String>.from(map['faceImage'] ?? []),
+      governmentDocument: List<String>.from(map['governmentDocument'] ?? []),
+      medicalDocument: List<String>.from(map['medicalDocument'] ?? []),
       lastDonated: map['lastDonated'] ?? '',
       token: map['token'] ?? '',
     );

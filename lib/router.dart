@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:test/common/widgets/bottom_nav_bar.dart';
 import 'package:test/features/auth/campaign/screens/campaigns_details_screen.dart';
+import 'package:test/features/auth/form/bloodRequestForm/blood_request_form.dart';
 import 'package:test/features/auth/form/campaignForm/screens/campaign_form.dart';
 import 'package:test/features/auth/home/screens/home_screen.dart';
+import 'package:test/features/auth/profile/screens/created_requests_details_screen.dart';
+import 'package:test/features/auth/profile/screens/my_created_requests.dart';
+import 'package:test/features/auth/profile/screens/my_details_screen.dart';
+import 'package:test/features/auth/profile/screens/profile_screen.dart';
+import 'package:test/features/auth/request/activeRequest/screens/active_request_screen.dart';
 import 'package:test/features/auth/screens/login.dart';
 import 'package:test/features/auth/screens/sign_up.dart';
 
@@ -28,6 +34,30 @@ Route<dynamic> generateRoute(RouteSettings routeSettings){
       return MaterialPageRoute(
         settings:routeSettings, 
         builder: (_)=> const ActiveCampaignScreen());
+    case ActiveRequestScreen.routeName:
+      return MaterialPageRoute(
+        settings:routeSettings, 
+        builder: (_)=> const ActiveRequestScreen());
+    case ProfileScreen.routeName:
+      return MaterialPageRoute(
+        settings:routeSettings, 
+        builder: (_)=> const ProfileScreen());
+    case MyDetailsScreen.routeName:
+      return MaterialPageRoute(
+        settings:routeSettings, 
+        builder: (_)=> const MyDetailsScreen());
+    case BloodRequesCreateForm.routeName:
+      return MaterialPageRoute(
+        settings:routeSettings, 
+        builder: (_)=> const BloodRequesCreateForm());
+    case MyCreatedRequest.routeName:
+      return MaterialPageRoute(
+        settings:routeSettings, 
+        builder: (_)=> const MyCreatedRequest());
+    case CreatedRequestDetailsScreen.routeName:
+      return MaterialPageRoute(
+        settings:routeSettings, 
+        builder: (_)=> const CreatedRequestDetailsScreen());
     case CampaignCreateForm.routeName:
       return MaterialPageRoute(
         settings:routeSettings, 

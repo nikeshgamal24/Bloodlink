@@ -1,37 +1,31 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:test/constants/global_variables.dart';
 
-class CampaignDetails extends StatelessWidget {
-  final String campaignTitle;
-  final String campaignDays;
-  final String campaignDayStatus;
-  final String campaignStartTime;
-  final String campaignEndTime;
-  final String campaignEndDate;
-  final String streetName;
-  final int goalPint;
-  final String campaignOrganizer;
-  final String campaignEmail;
-  final int campaignContact;
-
-  const CampaignDetails({
+class ReceivedRequestCard extends StatelessWidget {
+  final String bloodGroup;
+  final String location;
+  final String patientName;
+  final String caseOfRequest;
+  final String hospitalName;
+  final String? contact;
+  final int? phoneNumber;
+  const ReceivedRequestCard({
     super.key,
-    required this.campaignTitle,
-    required this.campaignDays,
-    required this.campaignDayStatus,
-    required this.campaignStartTime,
-    required this.campaignEndTime,
-    required this.campaignEndDate,
-    required this.streetName,
-    required this.goalPint,
-    required this.campaignOrganizer,
-    required this.campaignEmail,
-    required this.campaignContact,
+    required this.bloodGroup,
+    required this.location,
+    required this.patientName,
+    required this.caseOfRequest,
+    required this.hospitalName,
+    required this.contact,
+    required this.phoneNumber,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 330,
+      height: 328,
       width: double.infinity,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
@@ -63,13 +57,22 @@ class CampaignDetails extends StatelessWidget {
                 children: [
                   SizedBox(
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          campaignTitle,
-                          style: const TextStyle(
+                        const Text(
+                          "Required Blood: ",
+                          style: TextStyle(
                             color: Color.fromARGB(255, 117, 23, 17),
                             fontSize: 21,
                             fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          bloodGroup,
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 207, 45, 34),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
@@ -89,65 +92,14 @@ class CampaignDetails extends StatelessWidget {
               child: Row(
                 children: [
                   const Text(
-                    "Campaign Day: ",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        campaignDayStatus,
-                        style: const TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      const SizedBox(width: 5,),
-                      Text(
-                        campaignDays,
-                        style: const TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5.0),
-            child: SizedBox(
-              child: Row(
-                children: [
-                  const Text(
-                    "Campaign Time: ",
+                    "Patient Name: ",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    campaignStartTime,
-                    style: const TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  const SizedBox(width: 5,),
-                  const Text(
-                    "to",
-                    style: TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  const SizedBox(width: 5,),
-                  Text(
-                    campaignEndTime,
+                    patientName,
                     style: const TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.w400,
@@ -163,14 +115,14 @@ class CampaignDetails extends StatelessWidget {
               child: Row(
                 children: [
                   const Text(
-                    "Organizer: ",
+                    "Hospital: ",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    campaignOrganizer,
+                    hospitalName,
                     style: const TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.w400,
@@ -186,14 +138,14 @@ class CampaignDetails extends StatelessWidget {
               child: Row(
                 children: [
                   const Text(
-                    "Goal Pint: ",
+                    "Case: ",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    goalPint.toString(),
+                    caseOfRequest,
                     style: const TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.w400,
@@ -209,37 +161,14 @@ class CampaignDetails extends StatelessWidget {
               child: Row(
                 children: [
                   const Text(
-                    "Campaign Date: ",
+                    "Contact: ",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    campaignEndDate,
-                    style: const TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5.0),
-            child: SizedBox(
-              child: Row(
-                children: [
-                  const Text(
-                    "Email: ",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    campaignEmail.toString(),
+                    contact!,
                     style: const TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.w400,
@@ -262,7 +191,7 @@ class CampaignDetails extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    campaignContact.toString(),
+                    phoneNumber!.toString(),
                     style: const TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.w400,
@@ -289,11 +218,44 @@ class CampaignDetails extends StatelessWidget {
                   ),
                   SizedBox(
                     child: Text(
-                      streetName,
+                      location,
                       style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            height: 2,
+            color: Colors.black12,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
+            child: SizedBox(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          GlobalVariables.loginSignUpButtonBackgroundColor,
+                    ),
+                    onPressed: () {},
+                    child: Container(
+                      width: 60,
+                      height: 40,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: const Text(
+                        "Accept",
+                        style: TextStyle(
+                          fontSize: 19,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),

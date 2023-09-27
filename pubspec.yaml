@@ -46,7 +46,7 @@ dependencies:
   file_picker: ^5.5.0
   dotted_border: ^2.0.0+3
   socket_io_client: ^2.0.0
-  geolocator: ^10.1.0
+  geolocator: ^7.7.0
 
 dev_dependencies:
   flutter_test:

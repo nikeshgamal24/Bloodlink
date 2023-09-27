@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
+import 'package:test/common/widgets/loader.dart';
+import 'package:test/common/widgets/profile_section.dart';
 import 'package:test/features/auth/request/activeRequest/services/request_services.dart';
 import 'package:test/features/auth/request/activeRequest/widgets/blood_request_details.dart';
 import 'package:test/models/blood_request.dart';
-
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:test/providers/user_provider.dart';
 import '../../../../../constants/global_variables.dart';
 
 class ActiveRequestScreen extends StatefulWidget {
+  static const String routeName='/active-all-requests';
   const ActiveRequestScreen({super.key});
 
   @override
@@ -14,11 +20,29 @@ class ActiveRequestScreen extends StatefulWidget {
 
 class _ActiveRequestScreenState extends State<ActiveRequestScreen> {
   final RequestServices requestServices = RequestServices();
-  List<BloodRequest> bloodRequestList = [];
+  List<BloodRequest>? bloodRequestList ;
+   late IO.Socket socket;
+  String? userEmail;
 
   @override
   void initState() {
     super.initState();
+     socket = IO.io(uri, <String, dynamic>{
+      'transports': ['websocket'],
+      'autoConnect': true,
+    });
+    // Initialize geolocation
+    Geolocator.getPositionStream(
+            desiredAccuracy: LocationAccuracy.best, distanceFilter: 10)
+        .listen((Position position) {
+      // print('Location data: ${position.latitude}, ${position.longitude}');
+      // Send location data to the server
+      socket.emit('location', {
+        'latitude': position.latitude,
+        'longitude': position.longitude,
+        'email':userEmail,
+      });
+    });
     fetchAllRequests();
   }
 
@@ -31,6 +55,7 @@ class _ActiveRequestScreenState extends State<ActiveRequestScreen> {
 
   @override
   Widget build(BuildContext context) {
+     userEmail = Provider.of<UserProvider>(context).user.email;
     String bloodGroup, location, patientName, caseOfRequest, hospitalName;
     int? phoneNumber;
     String? contact;
@@ -45,10 +70,10 @@ class _ActiveRequestScreenState extends State<ActiveRequestScreen> {
               gradient: GlobalVariables.appBarGradient,
             ),
           ),
-          title: Row(
+          title:const  Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+               Row(
                 children: [
                     SizedBox(
                     child: Text(
@@ -62,25 +87,20 @@ class _ActiveRequestScreenState extends State<ActiveRequestScreen> {
                   ),
                 ],
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                child: const Icon(
-                  Icons.account_circle_outlined,
-                  color: Colors.black,
-                  size: 32,
-                ),
-              )
+              ProfileIcon(),
             ],
           ),
         ),
       ),
       // fetcht the data and poulate the screen
-      body: Padding(
+      body: bloodRequestList == null
+      ?const Loader()
+      : Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView.builder(
-          itemCount: bloodRequestList.length,
+          itemCount: bloodRequestList!.length,
           itemBuilder: ((context, index) {
-            final bloodRequestData = bloodRequestList[index];
+            final bloodRequestData = bloodRequestList![index];
 
             //values for passing to the widget
             bloodGroup = bloodRequestData.recipientBloodGroup;
@@ -88,8 +108,8 @@ class _ActiveRequestScreenState extends State<ActiveRequestScreen> {
             patientName = bloodRequestData.recipientName;
             caseOfRequest = bloodRequestData.caseOfRequest;
             hospitalName = bloodRequestData.hospitalName;
-            contact = bloodRequestData.contact;
-            phoneNumber = bloodRequestData.phoneNumber;
+            contact = bloodRequestData.contactOfRequestCreator;
+            phoneNumber = bloodRequestData.phoneNumberOfRequest;
 
             //return a colum for images and details of the product
             return Column(

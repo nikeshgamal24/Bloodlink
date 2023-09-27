@@ -75,7 +75,6 @@ class _MySignUpState extends State<MySignUp> {
       }
       
 
-      // Navigator.pushNamedAndRemoveUntil(context, MyLogin.routeName, (route) => false);
     }
   }
 

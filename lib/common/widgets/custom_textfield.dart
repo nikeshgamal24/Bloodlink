@@ -34,45 +34,75 @@ class CustomTextField extends StatelessWidget {
         fontSize: 15,
       ),
       validator: (value) {
-        switch (hintText.toLowerCase()) {
-          case 'email':
-            //email validation
-            // Check if this field is empty
-            if (value == null || value.isEmpty) {
-              return 'This field is required';
-            }
-
+        if (value == null || value.isEmpty) {
+          return 'This field is required';
+        }
+        switch (hintText) {
+          case 'Your email address':
             // using regular expression
-            if (!RegExp("^[a-zA-Z0-9_.+-]+@(gmail.com|yahoo.com|hotmail.com)\$")
+            if (!RegExp("^[a-zA-Z0-9_.+-]+@(gmail.com|yahoo.com|hotmail.com|ncit.edu.np)\$")
                 .hasMatch(value)) {
               return "Please enter a valid email address";
             }
             return null;
-          case 'password':
-            //password validation
-            if (value == null || value.isEmpty) {
-              return 'This field is required';
-            }
-
+          case 'Your password':
             if (value.length < 8) {
               return 'Password cannot be less than 8 characters';
             }
           //return error message
-          case 'username':
-            //email validation
-            // Check if this field is empty
-            if (value == null || value.isEmpty) {
-              return 'This field is required';
-            }
-
+          case 'Your full name':
             if (value.length < 5) {
               return 'Password cannot be less than 5 characters';
             }
 
-            if (!RegExp("^[a-zA-Z][a-zA-Z0-9_]*\$").hasMatch(value)) {
-              return "Invalid username. Must start with alphabet";
+            if (!RegExp(r"^[a-zA-Z][a-zA-Z0-9_ ]*$").hasMatch(value)) {
+              return "Invalid Input. Must start with alphabet";
             }
 
+            return null;
+          case 'Your age':
+            if (int.parse(value) <= 0) {
+              return 'Age cannot be in negative';
+            }
+
+            if (!RegExp(r"^[1-9][0-9]*$").hasMatch(value)) {
+              return "Invalid Age. Must start with Number";
+            }
+
+            return null;
+          case 'Your sex i.e. Male or Female':
+            if (value.toLowerCase() != 'male' &&
+                value.toLowerCase() != 'female') {
+              return 'Please,enter valid input';
+            }
+
+            return null;
+          case "Your Phone Number":
+            if (!RegExp(r"^98\d{8}$").hasMatch(value)) {
+              return "Invalid Input! Enter 10 digit number 98...";
+            }
+            return null;
+          case "Your Blood Group":
+            List<String> validBloodGroups = [
+              'A+',
+              'A-',
+              'B+',
+              'B-',
+              'AB+',
+              'AB-',
+              'O+',
+              'O-'
+            ];
+
+            if (!validBloodGroups.contains(value.toUpperCase())) {
+              return 'Please enter a valid blood group';
+            }
+            return null;
+          case "Last Blood Donated Date i.e. yyyy-mm-dd":
+            RegExp dateRegExp = RegExp(r'^\d{4}-\d{2}-\d{2}$');
+              if (!dateRegExp.hasMatch(value)) {
+                return "Enter correct format of date";
+              }
             return null;
           default:
             break;

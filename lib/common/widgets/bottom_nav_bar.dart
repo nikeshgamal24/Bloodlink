@@ -3,6 +3,7 @@ import 'package:test/constants/global_variables.dart';
 import 'package:test/features/auth/campaign/screens/campaigns_details_screen.dart';
 import 'package:test/features/auth/home/screens/home_screen.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:test/features/auth/receivedRequest/screens/received_request_screen.dart';
 import 'package:test/features/auth/request/activeRequest/screens/active_request_screen.dart';
 import 'package:test/features/auth/screens/create_screen.dart';
 
@@ -24,7 +25,7 @@ class _BottomBarState extends State<BottomBar> {
 //to correctly show the information
   List<Widget> pages=[
     const HomeScreen(),
-    const Center(child: Text('Request Screen'),),
+    const ReceivedRequestScreen(),
     const CreateScreen(),
     const ActiveRequestScreen(),
     const ActiveCampaignScreen(),

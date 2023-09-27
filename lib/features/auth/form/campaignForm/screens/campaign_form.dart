@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 import 'package:test/common/widgets/campaign_custom_textfield.dart';
 import 'package:test/features/auth/form/campaignForm/services/campaign_services.dart';
-
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:test/providers/user_provider.dart';
 import '../../../../../constants/global_variables.dart';
 import '../../../../../constants/utils.dart';
 
@@ -15,6 +18,8 @@ class CampaignCreateForm extends StatefulWidget {
 
 class _CampaignCreateFormState extends State<CampaignCreateForm> {
   final CampaignService campaignService = CampaignService();
+   late IO.Socket socket;
+  String? userEmail;
 
   //definine controller
   final TextEditingController _campaignTitleController =
@@ -103,6 +108,23 @@ class _CampaignCreateFormState extends State<CampaignCreateForm> {
         campaignEmail: _campaignEmailController.text,
         campaignContact: int.parse(_campaignContactController.text),
       );
+
+       socket = IO.io(uri, <String, dynamic>{
+      'transports': ['websocket'],
+      'autoConnect': true,
+    });
+    // Initialize geolocation
+    Geolocator.getPositionStream(
+            desiredAccuracy: LocationAccuracy.best, distanceFilter: 10)
+        .listen((Position position) {
+      // print('Location data: ${position.latitude}, ${position.longitude}');
+      // Send location data to the server
+      socket.emit('location', {
+        'latitude': position.latitude,
+        'longitude': position.longitude,
+        'email':userEmail,
+      });
+    });
     }
   }
 
@@ -128,6 +150,7 @@ class _CampaignCreateFormState extends State<CampaignCreateForm> {
 
   @override
   Widget build(BuildContext context) {
+    userEmail = Provider.of<UserProvider>(context).user.email;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
@@ -141,7 +164,12 @@ class _CampaignCreateFormState extends State<CampaignCreateForm> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Spacer(),
+              const Text(
+                "Fill Campaign Form",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 child: const Icon(

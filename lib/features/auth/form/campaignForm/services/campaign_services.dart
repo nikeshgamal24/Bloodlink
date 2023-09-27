@@ -49,7 +49,6 @@ class CampaignService {
         campaignLongitude: '',
         campaignLatitude: '',
         goalPint: goalPint,
-        collectedPint: 0,
         campaignOrganizer: campaignOrganizer,
         campaignEmail: campaignEmail,
         campaignContact: campaignContact,

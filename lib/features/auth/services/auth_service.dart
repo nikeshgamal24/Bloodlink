@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/common/widgets/bottom_nav_bar.dart';
 import 'package:test/constants/utils.dart';
 import 'package:test/constants/error_handling.dart';
+import 'package:test/features/auth/screens/login.dart';
 // import 'package:test/features/auth/home/screens/home_screem.dart';
 import 'package:test/models/user.dart';
 import 'package:test/constants/global_variables.dart';
@@ -40,7 +41,7 @@ class AuthService {
       //Work:: list of string images url --> map through all the images and send to cloudinary storage
       List<String> faceImageUrls = [];
       List<String> governmentDocumentUrls = [];
-       List<String> medicalDocumentUrls= [];
+      List<String> medicalDocumentUrls = [];
 
       print("inside admin services cloudinary section to store images");
       for (int i = 0; i < faceImage.length; i++) {
@@ -70,7 +71,6 @@ class AuthService {
         medicalDocumentUrls.add(res.secureUrl);
       }
 
-
       print(
           "inside admin services uploading product detail to mongodb section");
       // work:: will be uploading the urls only to the mongodb
@@ -90,13 +90,14 @@ class AuthService {
         role: 'recipient',
         status: 'UNVERIFIED',
         password: password,
-        lastDonated:lastDonated ,
+        lastDonated: lastDonated,
         token: '',
       );
 
       //post requrest and return response so need to pass in the form of json for which we pass it my headers
       print('=============BEfore sign up api hit===========');
       print(user.toJson());
+
       // we are sending the data
       http.Response res = await http.post(
         Uri.parse('$uri/user/signup'),
@@ -116,6 +117,8 @@ class AuthService {
         onSuccess: () {
           showSnackBar(
               context, 'Account created! Login with the same credentials');
+          Navigator.pushNamedAndRemoveUntil(
+              context, MyLogin.routeName, (route) => false);
         },
       );
 
@@ -162,14 +165,18 @@ class AuthService {
           // provider---> store the user data
           print('setting sharepreference and provider work done');
           SharedPreferences prefs = await SharedPreferences.getInstance();
+          print("=============Inside login function=================");
+          print(res.body);
+          print(jsonDecode(res.body)["token"]);
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
 
           //set the data i.e. token
           await prefs.setString('x-auth-token', jsonDecode(res.body)["token"]);
-          Navigator.pushNamedAndRemoveUntil(
-              context, BottomBar.routeName, (route) => false);
+          // Navigator.pushNamedAndRemoveUntil(
+          //     context, BottomBar.routeName, (route) => false);
           showSnackBar(context, "Succesfully Logged In");
           print('setting navigator');
+          Navigator.pushNamedAndRemoveUntil(context, BottomBar.routeName, (route) => false);
         },
       );
 
