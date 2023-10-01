@@ -9,5 +9,12 @@ Instant connections between donors and recipients.
 Donor verification and reward points to cash-in for service coupon to encourage people for donation
 
 ###Screenshots of blood link app
+### Screenshots
 
-![Homescree](screenshot_images/home_scree1.png)
+<table>
+  <tr>
+    <td><img src="screenshot_images/home_scree1.png" alt="Homescreen 1" width="300"></td>
+    <td><img src="screenshot_images/home_scree2.png" alt="Homescreen 2" width="300"></td>
+  </tr>
+</table>
+<!-- ![Homescree](screenshot_images/home_scree1.png) -->
