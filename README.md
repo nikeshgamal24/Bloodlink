@@ -1,16 +1,7 @@
-# test
+#Bloodlink
+Bloodlink is a Flutter-based mobile application that addresses the critical need for efficient blood donor connections during emergencies. It leverages real-time notifications and donor verification to connect donors with recipients within a specified radius, improving the accessibility and efficiency of blood transfusions. The app also offers an advertising platform for healthcare institutions and blood donation campaigns to promote awareness.
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#Key Features
+Real-time notifications for blood donation requests.
+Instant connections between donors and recipients.
+Donor verification and reward points to cash-in for service coupon to encourage people for donation
