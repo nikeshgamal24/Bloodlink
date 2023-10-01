@@ -10,4 +10,4 @@ Donor verification and reward points to cash-in for service coupon to encourage 
 
 ###Screenshots of blood link app
 
-![Homescree](screenshot images/home_scree1.png)
+![Homescree](screenshot_images/home_scree1.png)
