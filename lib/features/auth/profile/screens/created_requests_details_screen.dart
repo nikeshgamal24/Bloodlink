@@ -9,6 +9,7 @@ import 'package:test/constants/utils.dart';
 import 'package:test/features/auth/profile/services/my_created_requests_service.dart';
 import 'package:test/features/auth/profile/widgets/acceptor_card.dart';
 import 'package:test/features/auth/profile/widgets/detailed_request_section.dart';
+import 'package:test/features/auth/profile/widgets/otp_form.dart';
 import 'package:test/models/blood_request.dart';
 import 'package:test/providers/user_provider.dart';
 import 'package:http/http.dart' as http;
@@ -166,30 +167,46 @@ class _CreatedRequestDetailsScreenState
                   city = detailedRequestData.city;
                   bloodRequiredDate = detailedRequestData.bloodRequiredDate;
                   caseOfRequest = detailedRequestData.caseOfRequest;
+                  id= detailedRequestData.id;
                   // contact = detailedRequestData.contactOfRequestCreator;
                   // phoneNumber = detailedRequestData.phoneNumberOfRequest;
 
                   List? acceptors = detailedRequestData.acceptors;
                   // contact = detailedRequestData.contactOfRequestCreator;
                   // phoneNumber = detailedRequestData.phoneNumberOfRequest;
-                  //return a colum for images and details of the product
-                  print('----------acceptors-----------');
-                  final acceptor = jsonEncode(acceptors![index]);
 
-                  // Parse the JSON string into a Map
-                  Map<String, dynamic> jsonMap = json.decode(acceptor);
+                  // Create a list to hold AcceptorCard widgets
+                  List<Widget> acceptorCards = [];
 
-// Now you can access the values from the JSON
-                  String acceptorName = jsonMap['acceptorName'];
-                  int contactNumber = jsonMap['contactNumber'];
-                  String email = jsonMap['email'];
-                  String status = jsonMap['status'];
+                  // Iterate through acceptors and create AcceptorCard widgets
+                  for (var acceptorData in acceptors!) {
+                    final acceptor = jsonEncode(acceptorData);
 
-                  print(acceptorName);
-                  print(contactNumber);
-                  print(email);
-                  print(status);
-                  print('----------acceptors-----------');
+                    // Parse the JSON string into a Map
+                    Map<String, dynamic> jsonMap = json.decode(acceptor);
+
+                    // Now you can access the values from the JSON
+                    String acceptorName = jsonMap['acceptorName'];
+                    int contactNumber = jsonMap['contactNumber'];
+                    String email = jsonMap['email'];
+                    String status = jsonMap['acceptorStatus'];
+
+                    print(acceptorName);
+                    print(contactNumber);
+                    print(email);
+                    print(status);
+                    print('----------acceptors-----------');
+
+                    // Create and add an AcceptorCard widget to the list
+                    acceptorCards.add(
+                      AcceptorCard(
+                        acceptorName: acceptorName,
+                        contactNumber: contactNumber,
+                        email: email,
+                        status: status,
+                      ),
+                    );
+                  }
 
                   return Column(
                     children: [
@@ -209,12 +226,12 @@ class _CreatedRequestDetailsScreenState
                       const SizedBox(
                         height: 20,
                       ),
-                      AcceptorCard(
-                        acceptorName: acceptorName,
-                        contactNumber: contactNumber,
-                        email: email,
-                        status: status,
+                      // Add the acceptor cards to the column
+                      ...acceptorCards,
+                      const SizedBox(
+                        height: 20,
                       ),
+                       OTPCodeForm(reqId: id!,),
                       const SizedBox(
                         height: 20,
                       ),

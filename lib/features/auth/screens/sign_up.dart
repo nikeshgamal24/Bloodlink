@@ -71,6 +71,7 @@ class _MySignUpState extends State<MySignUp> {
           password: _passwordController.text,
           lastDonated:_lastDonatedController.text,
           token: '',
+          rewardPoints: 0,
         );
       }
       

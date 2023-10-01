@@ -3,16 +3,15 @@ import 'package:geolocator/geolocator.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/common/widgets/loader.dart';
 import 'package:test/common/widgets/profile_section.dart';
-import 'package:test/constants/utils.dart';
+import 'package:test/features/auth/form/bloodRequestForm/blood_request_form.dart';
 import 'package:test/features/auth/home/services/user_services.dart';
 import 'package:test/features/auth/home/widgets/activedonor_detail.dart';
 import 'package:test/features/auth/home/widgets/carousel_image.dart';
 import 'package:test/features/auth/home/widgets/dailyupdate_container.dart';
 import 'package:test/features/auth/home/widgets/donorcount_label.dart';
-import 'package:test/features/auth/screens/login.dart';
+import 'package:test/features/auth/receivedRequest/screens/received_request_screen.dart';
 import 'package:test/providers/user_provider.dart';
 import 'package:test/constants/global_variables.dart';
 
@@ -39,12 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     // Initialize Socket.IO
- print('---------inside initState-----------userEmail-------------------');
+    print('---------inside initState-----------userEmail-------------------');
     print(userEmail);
     socket = IO.io(uri, <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': true,
     });
+
     // Initialize geolocation
     Geolocator.getPositionStream(
             desiredAccuracy: LocationAccuracy.best, distanceFilter: 10)
@@ -145,7 +145,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 3,
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, BloodRequesCreateForm.routeName);
+                          },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 10),
@@ -244,7 +246,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 20,
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, ReceivedRequestScreen.routeName);
+                          },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 10),

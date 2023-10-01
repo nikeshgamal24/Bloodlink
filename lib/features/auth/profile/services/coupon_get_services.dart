@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -7,86 +6,83 @@ import 'package:test/common/widgets/bottom_nav_bar.dart';
 import 'package:test/constants/error_handling.dart';
 import 'package:test/constants/global_variables.dart';
 import 'package:test/constants/utils.dart';
-import 'package:test/models/blood_request.dart';
+import 'package:test/models/coupon.dart';
 import 'package:test/providers/user_provider.dart';
 import 'package:http/http.dart' as http;
 
-class MyReceivedRequestService {
-  Future<List<BloodRequest>> fetchAllReceivedRequests(BuildContext context) async {
+class CouponService {
+  Future<List<Coupon>> fetchAllCoupon(BuildContext context) async {
     //we need user Provide to have the token
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    List<BloodRequest> receivedRequestsList = [];
+    List<Coupon> couponList = [];
     try {
-      print("==============fetchAllReceivedRequests=============================");
+      print("=====================fetchAllCoupon======================");
       print("Current user token");
-      //  print(jsonDecode(userProvider.toString()));
       print(userProvider.user.id);
 
       http.Response res = await http.get(
-        Uri.parse('$uri/request/receivedRequest/'),
+        Uri.parse('$uri/coupon/allCouponsForUser'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
       );
-      print("===========================================");
-      print("End fetchAllReceivedRequests");
+      print("================fetchAllCoupon===========================");
+      print("End fetchAllCoupon");
 
       httpErrorHandle(
           response: res,
           context: context,
           onSuccess: () {
              for (int i = 0; i <jsonDecode(res.body).length; i++) {
-              receivedRequestsList.add(
+              couponList.add(
                 // have to convert into model
-                BloodRequest.fromJson(
+                Coupon.fromJson(
                   jsonEncode(
                     jsonDecode(res.body)[i],
                   ),
                 ),
               );
             }
-            print('------------------------MyReceivedRequestService-----------------');
-            print(receivedRequestsList);
+            print('------------------------fetchAllCoupon list-----------------');
+            print(couponList);
           });
     } catch (e) {
       showSnackBar(context, e.toString());
     }
-    return receivedRequestsList;
+    return couponList;
   }
 
-  Future<void> acceptRequestResponse(BuildContext context,String requestId) async {
+
+   Future<void> redeemCoupon(BuildContext context, String coupId) async {
     //we need user Provide to have the token
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    // List<BloodRequest> acceptedRequestResponse = [];
+    List<Coupon> couponList = [];
     try {
-      print("==============acceptRequestResponse=============================");
-      print("Current user token");
-      //  print(jsonDecode(userProvider.toString()));
-      print(userProvider.user.id);
-      print(' acceptRequestResponse requestId');
-      print(requestId);
+      print("=====================fetchAllCoupon======================");
+      print("coupId");
+      print(coupId);
 
       http.Response res = await http.get(
-        Uri.parse('$uri/request/acceptRequest/$requestId'),
+        Uri.parse('$uri/coupon/redeemCoupon/$coupId'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
       );
-      print("===========================================");
-      print("End acceptRequestResponse");
+      print("================fetchAllCoupon===========================");
+      print("End fetchAllCoupon");
 
       httpErrorHandle(
           response: res,
           context: context,
           onSuccess: () {
-            //  print(jsonDecode(res.body));
-            // print(jsonDecode(res.body) !=null);
-            if(jsonDecode(res.body) !=null){
-              showSnackBar(context, "Please ,check your mail for your OTP  verification code!");
-            }
-            Navigator.pushNamedAndRemoveUntil(context, BottomBar.routeName, (route) => false);
+             print('jsonDecode(res.body)["status"]');
+            print(jsonDecode(res.body)["status"]);
+             if(jsonDecode(res.body)["status"] == 'success'){
+              showSnackBar(context, 'Successfully redeemed coupon of id: $coupId');
+              Navigator.pushNamedAndRemoveUntil(context, BottomBar.routeName, (route) => false);
+             }
           });
     } catch (e) {
       showSnackBar(context, e.toString());

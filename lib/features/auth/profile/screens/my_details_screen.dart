@@ -127,7 +127,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                         width: 320,
                       ),
                       UserDetailItem(
-                          label: "Last Blood Donated", value: user.lastDonated),
+                          label: "Last Donated", value: user.lastDonated),
                       Container(
                         height: 3,
                         color: GlobalVariables.dividerColor,

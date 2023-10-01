@@ -16,6 +16,7 @@ class User {
   final List<String> governmentDocument;
   final List<String> medicalDocument;
   final String lastDonated;
+  final int rewardPoints;
   final String token;
 
   User({
@@ -30,6 +31,7 @@ class User {
     this.status,
     required this.password,
     this.role,
+    required this.rewardPoints,
     required this.faceImage,
     required this.governmentDocument,
     required this.medicalDocument,
@@ -53,6 +55,7 @@ class User {
       "medicalDocument": medicalDocument,
       "role": role,
       "status": status,
+        "rewardPoints": rewardPoints,
       "password": password,
       "lastDonated": lastDonated,
       "token": token,
@@ -76,6 +79,7 @@ class User {
       governmentDocument: List<String>.from(map['governmentDocument'] ?? []),
       medicalDocument: List<String>.from(map['medicalDocument'] ?? []),
       lastDonated: map['lastDonated'] ?? '',
+         rewardPoints: map['rewardPoints'] ?? 0,
       token: map['token'] ?? '',
     );
   }

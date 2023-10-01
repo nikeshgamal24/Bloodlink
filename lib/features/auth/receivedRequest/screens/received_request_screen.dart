@@ -6,6 +6,7 @@ import 'package:test/features/auth/receivedRequest/services/received_request_ser
 import 'package:test/models/blood_request.dart';
 
 class ReceivedRequestScreen extends StatefulWidget {
+  static const String routeName = '/received-requests';
   const ReceivedRequestScreen({super.key});
 
   @override

@@ -80,7 +80,7 @@ class BloodRequestService {
           showSnackBar(context, 'Blood Request Sucessfylly Updated!');
           print(
               '===========Form validation sucessfully working================');
-          Navigator.pushNamedAndRemoveUntil(context, MyCreatedRequest.routeName, (route) => false);
+          Navigator.pushNamed(context, MyCreatedRequest.routeName);
         },
       );
 

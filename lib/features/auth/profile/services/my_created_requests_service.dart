@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -7,13 +6,15 @@ import 'package:provider/provider.dart';
 import 'package:test/common/widgets/bottom_nav_bar.dart';
 import 'package:test/constants/global_variables.dart';
 import 'package:test/constants/utils.dart';
+import 'package:test/features/auth/profile/screens/profile_screen.dart';
 import 'package:test/models/blood_request.dart';
 
 import '../../../../constants/error_handling.dart';
 import '../../../../providers/user_provider.dart';
 
 class MyCreatedRequestService {
-  Future<List<BloodRequest>> fetchAllCreatedRequests(BuildContext context) async {
+  Future<List<BloodRequest>> fetchAllCreatedRequests(
+      BuildContext context) async {
     //we need user Provide to have the token
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<BloodRequest> createdRequestsList = [];
@@ -36,7 +37,7 @@ class MyCreatedRequestService {
           response: res,
           context: context,
           onSuccess: () {
-             for (int i = 0; i <jsonDecode(res.body).length; i++) {
+            for (int i = 0; i < jsonDecode(res.body).length; i++) {
               createdRequestsList.add(
                 // have to convert into model
                 BloodRequest.fromJson(
@@ -46,7 +47,8 @@ class MyCreatedRequestService {
                 ),
               );
             }
-            print('------------------------fetchAllCreatedRequestslist-----------------');
+            print(
+                '------------------------fetchAllCreatedRequestslist-----------------');
             print(createdRequestsList);
           });
     } catch (e) {
@@ -55,8 +57,8 @@ class MyCreatedRequestService {
     return createdRequestsList;
   }
 
-
-  Future<List<BloodRequest>> deleteCreatedRequest(BuildContext context,String id) async {
+  Future<List<BloodRequest>> deleteCreatedRequest(
+      BuildContext context, String id) async {
     //we need user Provide to have the token
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<BloodRequest> deletedList = [];
@@ -79,22 +81,22 @@ class MyCreatedRequestService {
           response: res,
           context: context,
           onSuccess: () {
-          
-              showSnackBar(context, 'Request Deleted Successfully!');
-             
-            print('------------------------deleteCreatedRequest-----------------');
+            showSnackBar(context, 'Request Deleted Successfully!');
+
+            print(
+                '------------------------deleteCreatedRequest-----------------');
             print(deletedList);
-            Navigator.pushNamedAndRemoveUntil(context, BottomBar.routeName, (route) => false);
+            Navigator.pushNamedAndRemoveUntil(
+                context, BottomBar.routeName, (route) => false);
           });
     } catch (e) {
       showSnackBar(context, e.toString());
     }
-  return deletedList;
+    return deletedList;
   }
 
-
-
-  Future<List<BloodRequest>> fetchDetailsOfCurrentRequest(BuildContext context,String id) async {
+  Future<List<BloodRequest>> fetchDetailsOfCurrentRequest(
+      BuildContext context, String id) async {
     //we need user Provide to have the token
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<BloodRequest> detailedRequestList = [];
@@ -104,7 +106,7 @@ class MyCreatedRequestService {
       print(userProvider.user.id);
 
       http.Response res = await http.get(
-        Uri.parse('$uri/request/details-of-request//$id'),
+        Uri.parse('$uri/request/details-of-request/$id'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -117,16 +119,111 @@ class MyCreatedRequestService {
           response: res,
           context: context,
           onSuccess: () {
-          
-              // showSnackBar(context, 'Request Deleted Successfully!');
-             
-            print('------------------------fetchDetailsOfCurrentRequest-----------------');
+            // showSnackBar(context, 'Request Deleted Successfully!');
+
+            print(
+                '------------------------fetchDetailsOfCurrentRequest-----------------');
             print(detailedRequestList);
             // Navigator.pushNamedAndRemoveUntil(context, BottomBar.routeName, (route) => false);
           });
     } catch (e) {
       showSnackBar(context, e.toString());
     }
-  return detailedRequestList;
+    return detailedRequestList;
+  }
+
+  Future<void> verifyOTPCode(BuildContext context, String reqId, String otp) async {
+    //we need user Provide to have the token
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      print("===========================================");
+      print("Current user token");
+      print(userProvider.user.id);
+       print("Request ID");
+      print(reqId);
+       print("otp");
+      print(otp);
+
+      http.Response res = await http.get(
+        Uri.parse('$uri/request/verifyOTP/$reqId/$otp'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
+      print("===========================================");
+      print("End verifyOTPCode");
+
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            // showSnackBar(context, 'Request Deleted Successfully!');
+             print('----------------------verifyOTPCode on success---------------------------');
+              print(jsonDecode(res.body));
+               final resParam =jsonEncode( jsonDecode(res.body));
+               final resJson = json.decode(resParam);
+               print(resJson["status"]);
+               print(resJson["status"].runtimeType);
+               
+               if(resJson["status"] == 'success'){
+                showSnackBar(context, "OTP verification successful!");
+                print('----------------------verifyOTPCode on success---------------------------');
+                Navigator.pushNamedAndRemoveUntil(context, ProfileScreen.routeName, (route) => false);
+               }
+            // print(
+            //     '------------------------fetchDetailsOfCurrentRequest-----------------');
+            // print(detailedRequestList);
+            // Navigator.pushNamedAndRemoveUntil(context, BottomBar.routeName, (route) => false);
+          });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+
+  Future<List<BloodRequest>> successfulRequests(BuildContext context) async {
+    //we need user Provide to have the token
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<BloodRequest> successfulRequests=[];
+
+    try {
+      print("===========================================");
+      print("Current user token");
+      print(userProvider.user.id);
+
+      http.Response res = await http.get(
+        Uri.parse('$uri/request/getSuccessfulRequest'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
+      print("===========================================");
+      print("End successfulRequests");
+
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            for (int i = 0; i < jsonDecode(res.body).length; i++) {
+              successfulRequests.add(
+                // have to convert into model
+                BloodRequest.fromJson(
+                  jsonEncode(
+                    jsonDecode(res.body)[i],
+                  ),
+                ),
+              );
+            }
+            print(
+                '------------------------successfulRequests-----------------');
+            print(successfulRequests);
+          });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return successfulRequests;
   }
 }

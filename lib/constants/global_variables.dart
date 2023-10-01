@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
+
 //global variable
 //home
-String uri = 'http://172.16.12.165:3000';
+String uri = 'http://192.168.1.69:3000';
 
-//Pokhara home address
-// String uri = 'http://192.168.1.12:3000';
+//Pokhara home addressz
+// String uri = 'http://172.16.12.165:3000';
 // String uri = 'https://bloodlink.cyclic.app';
 
 //adarsh
 // String uri = 'http://172.20.10.3:3000';
+
+//adarsh home
+// String uri = 'http://192.168.1.68:3000';
+
+//kantipur
+// String uri = 'http://192.168.0.124:3000';
+// String uri = 'http://192.168.1.64:3000';
+
+
+// mobile data network
+// String uri = 'http://172.20.10.4:3000';
+
 
 class GlobalVariables {
   // COLORS
@@ -33,7 +46,7 @@ class GlobalVariables {
       Color.fromARGB(255, 212, 29, 72);
   static const appBarColor = Color.fromARGB(255, 201, 25, 66);
   static const dividerColor = Color.fromARGB(59, 0, 0, 0);
-
+static const khaltiAppColor = Color.fromARGB(255,94,61,142);
   // STATIC IMAGES
   static const List<String> carouselImages = [
     'https://img.freepik.com/free-psd/blood-donation-banner-template_23-2149084554.jpg?w=360',

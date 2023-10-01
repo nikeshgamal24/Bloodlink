@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+// import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:test/common/widgets/blood_request_textfield.dart';
 import 'package:test/constants/global_variables.dart';
@@ -109,23 +109,6 @@ class _BloodRequesCreateForm extends State<BloodRequesCreateForm> {
         acceptors: [],
         //
       );
-
-      socket = IO.io(uri, <String, dynamic>{
-        'transports': ['websocket'],
-        'autoConnect': true,
-      });
-      // Initialize geolocation
-      Geolocator.getPositionStream(
-              desiredAccuracy: LocationAccuracy.best, distanceFilter: 10)
-          .listen((Position position) {
-        // print('Location data: ${position.latitude}, ${position.longitude}');
-        // Send location data to the server
-        socket.emit('location', {
-          'latitude': position.latitude,
-          'longitude': position.longitude,
-          'email': userEmail,
-        });
-      });
     }
   }
 

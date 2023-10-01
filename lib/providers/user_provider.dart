@@ -17,6 +17,7 @@ class UserProvider extends ChangeNotifier{
      role:'',
      status:'',
      password:'',
+     rewardPoints:0,
      lastDonated: '',
      token:'',
   );

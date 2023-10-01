@@ -25,6 +25,7 @@ class AuthService {
     required String bloodGroup,
     required String address,
     required String email,
+    required int rewardPoints,
     String? status,
     required String password,
     String? role,
@@ -91,6 +92,7 @@ class AuthService {
         status: 'UNVERIFIED',
         password: password,
         lastDonated: lastDonated,
+        rewardPoints:rewardPoints,
         token: '',
       );
 
@@ -169,7 +171,8 @@ class AuthService {
           print(res.body);
           print(jsonDecode(res.body)["token"]);
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
-
+          final user = Provider.of<UserProvider>(context,listen: false);
+          print(user);
           //set the data i.e. token
           await prefs.setString('x-auth-token', jsonDecode(res.body)["token"]);
           // Navigator.pushNamedAndRemoveUntil(

@@ -41,26 +41,18 @@ class AcceptorCard extends StatelessWidget {
           ]),
       child: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(10),
+           Padding(
+            padding: const EdgeInsets.all(10),
             child: SizedBox(
-              child: Row(
-                children: [
-                  SizedBox(
-                    child: Row(
-                      children: [
-                        Text(
-                          "Acceptors Details: ",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 117, 23, 17),
-                            fontSize: 21,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
+              child: SizedBox(
+                child: Text(
+                  "Acceptors Details of  $acceptorName",
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 117, 23, 17),
+                    fontSize: 21,
+                    fontWeight: FontWeight.w600,
                   ),
-                ],
+                ),
               ),
             ),
           ),

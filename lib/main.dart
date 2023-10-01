@@ -8,6 +8,7 @@ import 'package:test/providers/user_provider.dart';
 import 'package:test/router.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(providers: [
     ChangeNotifierProvider(create: (context)=> UserProvider(),
@@ -42,21 +43,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Bloodlink',
-      // theme: ThemeData(
-      //   scaffoldBackgroundColor: GlobalVariables.backgroundColor,
-      //   // useMaterial3: true,
-      //   colorScheme: const ColorScheme.light(
-      //     primary: GlobalVariables.secondaryColor,
-      //   ),
-        
-      //   //for the appBarThere
-      //   appBarTheme: const AppBarTheme(
-      //     elevation: 0,
-      //     iconTheme: IconThemeData(
-      //       color: Colors.black,
-      //     )
-      //   ),
-      // ),
       //onGenerateRoute will run the callback--> whatever is present on it and the filtering of the route where to go is determined by the the switch cases in router.dart
 
       //generateRoute(settings) --> will check the route and transit to the correct page accordingly that is performed in the router.dart file

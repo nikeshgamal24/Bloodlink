@@ -43,7 +43,6 @@ class UserProfileDetailService {
                 ),
               );
             }
-            print('------------------------userList-----------------');
             print(userList);
           });
     } catch (e) {
